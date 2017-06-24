@@ -54,16 +54,14 @@ def _delete_message(ids):
 # Standard routing (server-side rendered pages)
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    if not request.cookies.get('password') == "dank":
+        return render_template('access-denied.html');
+
     if request.method == 'POST':
         _add_message(request.form['message'], request.form['username'])
         redirect(url_for('home'))
 
     return render_template('index.html', messages=_get_message())
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 
 @app.route('/admin', methods=['GET', 'POST'])
