@@ -12,7 +12,7 @@
                 {% if messages %}
                     {% for m in messages | reverse %}
                         <label for="{{m.sender}}">{{ m.sender }} ({{ m.dt }})</label>
-                        <p id="{{m.sender}}">"{{ m.message }}"</p>
+                        <p id="{{m.sender}}">{{ m.message }}</p>
                     {% endfor %}
                 {% else %}
                     <p>No messages found.</p>
