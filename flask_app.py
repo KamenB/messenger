@@ -58,7 +58,7 @@ def home():
         return render_template('access-denied.html');
 
     if request.method == 'POST':
-        _add_message(request.form['message'], request.form['username'])
+        _add_message(request.form['message'], 'Cutie')
         redirect(url_for('home'))
 
     return render_template('index.html', messages=_get_message())

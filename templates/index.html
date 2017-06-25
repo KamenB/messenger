@@ -7,33 +7,34 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-4">
-                <h2>Tell me about your day :)</h2>
-                <form id="mainform" method="post">
-                    <div class="form-group">
-                        <label for="username">Sender:</label>
-                        <input id="username" class="form-control" name="username" readonly value="Cutie">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Enter your message:</label>
-                        <input id="message" class="form-control" name="message" placeholder="Your message here" required>
-                    </div>
-                    <input class="btn btn-default" type="submit" value="Submit">
-                </form>
-
-            </div>
-            <div class="col-md-8">
-
-                <h2>Love letters</h2>
+            <h2>Love letters</h2>
+            <div id="messages-wrapper" class="col-md-12" style="height: 70vh; overflow-x: hidden; overflow-y: scroll;">
                 {% if messages %}
-                    {% for m in messages %}
-                        <p>"{{ m.message }}"</p>
-                        <p>{{ m.sender }} ({{ m.dt }})</p>
+                    {% for m in messages | reverse %}
+                        <label for="{{m.sender}}">{{ m.sender }} ({{ m.dt }})</label>
+                        <p id="{{m.sender}}">"{{ m.message }}"</p>
                     {% endfor %}
                 {% else %}
                     <p>No messages found.</p>
                 {% endif %}
             </div>
+            <div class="col-md-12 footer">
+                <h2>Tell me about your day :)</h2>
+                <form id="mainform" method="post">
+                    <div class="form-group">
+                        <input id="message" class="form-control" name="message" placeholder="Your message here" required autocomplete="off">
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Submit" style="visibility: hidden;">
+                </form>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    messagesWrapper = $('#messages-wrapper')[0]
+                    height = messagesWrapper.scrollHeight - messagesWrapper.clientHeight;
+                    $('#messages-wrapper').animate({ scrollTop: height }, 0);
+                    $('#message').get(0).focus();
+                });
+            </script>
         </div>
     </div>
 
