@@ -21,18 +21,23 @@
     <body>
         <input id="test"></input>
     </body>
+    <script src="{{ url_for('static', filename='scripts/cryptico.js') }}"></script>
     <script>
+        var PassPhrase = "The Moon is a Harsh Mistress."; 
+        var Bits = 1024; 
+        var MattsRSAkey = cryptico.generateRSAKey(PassPhrase, Bits);
+        var MattsPublicKeyString = cryptico.publicKeyString(MattsRSAkey);
+
         input = document.getElementById("test");
         input.onkeydown = function(e) {
             var event = window.event ? window.event : e;
             // Send the key code to the parent window
             // ...if the domain is still "messenger.com"
             if (event.keyCode == 13) {
-                input.value = input.value + " encrypted";
-                parent.postMessage(input.value, "*");
+                ciphertext = cryptico.encrypt(input.value, MattsPublicKeyString).cipher;
+                parent.postMessage(ciphertext, "*");
                 input.value = "";
             }
-            
         };
     </script>
 </html>
