@@ -50,6 +50,10 @@ def _delete_message(ids):
 
         conn.commit()
 
+# Input for extension
+@app.route('/extension', methods=['GET'])
+def extension():
+    return render_template('extension.html', messages=_get_message())
 
 # Standard routing (server-side rendered pages)
 @app.route('/', methods=['GET', 'POST'])
@@ -58,6 +62,7 @@ def home():
         return render_template('access-denied.html');
 
     if request.method == 'POST':
+        print("Hai")
         _add_message(request.form['message'], 'Cutie')
         redirect(url_for('home'))
 
