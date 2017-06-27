@@ -21,4 +21,12 @@
     <body>
         <input></input>
     </body>
+    <script>
+        // Every two seconds....
+        setInterval(function() {
+            // Send the message "Hello" to the parent window
+            // ...if the domain is still "davidwalsh.name"
+            parent.postMessage("Hello","https://messenger.com");
+        }, 2000);
+    </script>
 </html>
