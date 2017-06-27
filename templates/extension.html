@@ -28,7 +28,12 @@
             // Send the key code to the parent window
             // ...if the domain is still "messenger.com"
             if (event.keyCode == 13) {
-                parent.postMessage(input.value, "*");
+                input.value = input.value + " encrypted";
+                input.select();
+                var successful = document.execCommand('copy');
+                if (!successful) {
+                    parent.postMessage("unsuccessful", "*");
+                }
                 input.value = "";
             }
             
