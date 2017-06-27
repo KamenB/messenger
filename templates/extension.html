@@ -19,14 +19,15 @@
         </style>
     </head>
     <body>
-        <input></input>
+        <input id="test"></input>
     </body>
     <script>
-        // Every two seconds....
-        setInterval(function() {
-            // Send the message "Hello" to the parent window
-            // ...if the domain is still "davidwalsh.name"
-            parent.postMessage("Hello","https://www.messenger.com");
-        }, 2000);
+        input = document.getElementById("test");
+        input.onkeydown = function(e) {
+            var event = window.event ? window.event : e;
+            // Send the key code to the parent window
+            // ...if the domain is still "messenger.com"
+            parent.postMessage(event.keyCode, "https://messenger.com");
+        };
     </script>
 </html>
