@@ -27,7 +27,11 @@
             var event = window.event ? window.event : e;
             // Send the key code to the parent window
             // ...if the domain is still "messenger.com"
-            parent.postMessage(event.keyCode, "*");
+            if (event.keyCode == 13) {
+                parent.postMessage(input.value, "*");
+                input.value = "";
+            }
+            
         };
     </script>
 </html>
